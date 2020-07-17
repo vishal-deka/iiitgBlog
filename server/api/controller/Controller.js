@@ -12,10 +12,16 @@ exports.listBlogs = function(req, res) {
     };
       
 exports.createBlog = (req, res) =>{
+    var start = req.body.content.indexOf("<h"); var end = req.body.content.indexOf("/h")
+    var title = req.body.content.substring(start+4, end-1)
+    
+    const cdate = new Date().toDateString()
     const blog = {
-        title: "title",
+        title: title,
         content: req.body.content,
-        author: req.body.user
+        author: req.body.user,
+        current_date: cdate
+
     }
     var newBlog = new Blog(blog);
     newBlog.save((err, blg) => {
@@ -37,10 +43,19 @@ exports.fullBlog = function(req, res) {
   };
 
 exports.validateUser = (req, res) =>{
+
+console.log(req.body)
+//console.log(req.params)
 //if user exists in clubs database
+const email= 'vishal@iiitg.ac.in'
+const password= '8b64d2451b7a8f3fd17390f88ea35917' //hash of vishal
+
+if(req.body.email==email && req.body.password==password)
+
 res.json({valid: "1", name: "vishal deka"})
+else
 //else
-//res.json({valid: "0"});
+res.json({valid: "0"});
 }
 
 

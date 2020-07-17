@@ -32,7 +32,10 @@ class Login extends React.Component{
                 {
                     this.setState({isVerified:1, name: res.data.name})
                 }
-                else this.setState({isVerified:2})
+                else {
+                    this.setState({isVerified:2})
+                    alert("Username or password invalid. Please try again")
+                }
             },
             (error) =>{
                 this.setState({isVerified:2})
